@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Controller {
@@ -54,7 +55,12 @@ public class Controller {
 
     @FXML
     void load(ActionEvent event) {
+        parser.start(URL.getText());
+        writer.setText(parser.writer);
+//        Image imagePoster = new Image(parser.URLPoster,poster.getFitWidth(), poster.getFitHeight(), false, false);
 
+
+        poster.setImage(parser.image);
     }
 
     @FXML

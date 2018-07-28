@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.image.Image;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -10,6 +11,10 @@ import java.net.URL;
 
 public class KinopoiskParser {
 
+    public String writer;
+    public Image image;
+    public String URLPoster;
+
     public void start (String kinoURL) {
         Document doc = null;
         try {
@@ -19,8 +24,8 @@ public class KinopoiskParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String title = doc.title();
-        System.out.println("Title : " + title);
+        //String title = doc.title();
+        //System.out.println("Title : " + title);
 
 
         Element table = doc.select("table").first();
@@ -32,25 +37,31 @@ public class KinopoiskParser {
             Elements cols = row.select("td");// разбиваем полученную строку по тегу  на столбы
             System.out.print(cols.get(0).text() + ": ");// первый столбец
             System.out.print(cols.get(1).text());
-
+            if(cols.get(0).text().contains("режиссер")) writer = cols.get(1).text();
             System.out.println();
         }
 
 
-        System.out.println(doc.select("div[itemprop=description]").get(0).text());
+        //System.out.println(doc.select("div[itemprop=description]").get(0).text());
 
-        System.out.println(doc.select("span[class=rating_ball]").get(0).text());
+        //System.out.println(doc.select("span[class=rating_ball]").get(0).text());
 
         Element link = doc.select("link[rel=\"image_src\"]").first();
         String relHref = link.attr("href");
         System.out.println(relHref);
-        getImage(relHref);
+        URLPoster = relHref;
+//        getImage(relHref);
     }
 
     public void getImage(String strURL){
         try{
 
-            URL url = new URL(strURL);
+            boolean backgroundLoading = true;
+
+            image = new Image(strURL, backgroundLoading);
+
+
+          /*  URL url = new URL(strURL);
             InputStream in = url.openStream();
             OutputStream out = new BufferedOutputStream(new FileOutputStream("image.jpg"));
 
@@ -58,7 +69,7 @@ public class KinopoiskParser {
                 out.write(b);
             }
             out.close();
-            in.close();
+            in.close();*/
 
         }catch (Exception e){
             e.printStackTrace();
