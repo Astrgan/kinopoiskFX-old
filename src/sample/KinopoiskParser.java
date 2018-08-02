@@ -50,7 +50,7 @@ public class KinopoiskParser {
         String relHref = link.attr("href");
         System.out.println(relHref);
         URLPoster = relHref;
-//        getImage(relHref);
+        getImage(relHref);
     }
 
     public void getImage(String strURL){
