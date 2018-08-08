@@ -9,7 +9,7 @@ import org.jsoup.select.Elements;
 import java.io.*;
 import java.net.URL;
 
-public class KinopoiskParser {
+public class KinopoiskParserFilm {
 
     public String name;
     String fullName;
@@ -21,6 +21,7 @@ public class KinopoiskParser {
     public String URLPoster;
     public String description;
     public String rating;
+    public String actors;
 
     public void start (String kinoURL) {
         Document doc = null;
@@ -73,6 +74,29 @@ public class KinopoiskParser {
         Element link = doc.select("link[rel=\"image_src\"]").first();
         String relHref = link.attr("href");
         System.out.println(relHref);
+
+
+        Element divActors = doc.select("div[id=actorList] > ul").get(0);
+        Elements listActors = divActors.children();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Element elem : listActors) {
+
+            if(!elem.text().equals("...")) {
+                stringBuilder.append(elem.text());
+                stringBuilder.append(", ");
+            }
+            //            System.out.println(elem.text());
+        }
+        actors = stringBuilder.toString();
+
+
+
+      /*  Element addDetails = doc.select("div.container > div.main-content > div.clearfix > div.col_7.post-info > ul.no-bullet").first();
+        Elements divChildren = addDetails.children();
+        for (Element elem : divChildren) {
+            System.out.println(elem.text());
+        }*/
+
         URLPoster = relHref;
         getImage(relHref);
     }

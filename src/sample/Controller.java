@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Controller {
@@ -32,7 +31,7 @@ public class Controller {
     private TextField rating;
 
     @FXML
-    private TextArea Actors;
+    private TextArea actors;
 
     @FXML
     private TextField URL;
@@ -46,7 +45,7 @@ public class Controller {
     @FXML
     private Button btnSave1;
 
-    KinopoiskParser parser = new KinopoiskParser();
+    KinopoiskParserFilm parser = new KinopoiskParserFilm();
 
     @FXML
     void PrevFilm(ActionEvent event) {
@@ -64,6 +63,8 @@ public class Controller {
         country.setText(parser.countries);
         writer.setText(parser.writer);
         description.setText(parser.description);
+        actors.setText(parser.actors);
+
 
 
 
@@ -73,7 +74,8 @@ public class Controller {
 
     @FXML
     void nextFilm(ActionEvent event) {
-
+        KinopoiskParserListYears listYears = new KinopoiskParserListYears();
+        listYears.start();
     }
 
     @FXML
