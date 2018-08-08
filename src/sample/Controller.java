@@ -55,9 +55,17 @@ public class Controller {
 
     @FXML
     void load(ActionEvent event) {
+        URL.setText("https://www.kinopoisk.ru/film/otryad-samoubiyts-2016-468522/");
         parser.start(URL.getText());
+        names.setText(parser.name);
+        genres.setText(parser.genres);
+        rating.setText(parser.rating);
+        year.setText(parser.year);
+        country.setText(parser.countries);
         writer.setText(parser.writer);
-//        Image imagePoster = new Image(parser.URLPoster,poster.getFitWidth(), poster.getFitHeight(), false, false);
+        description.setText(parser.description);
+
+
 
 
         poster.setImage(parser.image);

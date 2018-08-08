@@ -11,9 +11,16 @@ import java.net.URL;
 
 public class KinopoiskParser {
 
+    public String name;
+    String fullName;
     public String writer;
+    public String countries;
+    public String year;
+    public String genres;
     public Image image;
     public String URLPoster;
+    public String description;
+    public String rating;
 
     public void start (String kinoURL) {
         Document doc = null;
@@ -24,9 +31,22 @@ public class KinopoiskParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //String title = doc.title();
-        //System.out.println("Title : " + title);
+//        String title = doc.title();
 
+
+        Elements metaTags = doc.getElementsByTag("meta");
+        for (Element metaTag : metaTags) {
+            String content = metaTag.attr("property");
+            if ("title".equals(content)) {
+                fullName = metaTag.attr("content");
+                System.out.println(fullName);
+                break;
+            }
+
+        }
+//        System.out.println(doc.select("meta[property=title]").get(0).text());
+
+        name = fullName.substring(1, fullName.indexOf('(')-2);
 
         Element table = doc.select("table").first();
 
@@ -38,13 +58,17 @@ public class KinopoiskParser {
             System.out.print(cols.get(0).text() + ": ");// первый столбец
             System.out.print(cols.get(1).text());
             if(cols.get(0).text().contains("режиссер")) writer = cols.get(1).text();
+            if(cols.get(0).text().contains("жанр")) genres = cols.get(1).text();
+            if(cols.get(0).text().contains("год")) year = cols.get(1).text();
+            if(cols.get(0).text().contains("страна")) countries = cols.get(1).text();
+
             System.out.println();
         }
 
-
-        //System.out.println(doc.select("div[itemprop=description]").get(0).text());
-
-        //System.out.println(doc.select("span[class=rating_ball]").get(0).text());
+        description = doc.select("div[itemprop=description]").get(0).text();
+        rating = doc.select("span[class=rating_ball]").get(0).text();
+        System.out.println(doc.select("div[itemprop=description]").get(0).text());
+        System.out.println(doc.select("span[class=rating_ball]").get(0).text());
 
         Element link = doc.select("link[rel=\"image_src\"]").first();
         String relHref = link.attr("href");
