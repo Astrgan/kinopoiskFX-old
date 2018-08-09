@@ -6,13 +6,15 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class KinopoiskParserListYears {
+    public ArrayList<String> listFilms = new ArrayList<>();
 
-    public void start() {
+    public void start(String url) {
         Document doc = null;
         try {
-            doc = Jsoup.connect("https://www.kinopoisk.ru/lists/m_act%5Byear%5D/2016/").get();
+            doc = Jsoup.connect(url).get();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -21,7 +23,9 @@ public class KinopoiskParserListYears {
 
         for (Element element: divs) {
             Elements elementsFilm = element.getElementsByTag("a");
-            System.out.println("https://www.kinopoisk.ru" + elementsFilm.attr("href"));
+            listFilms.add("https://www.kinopoisk.ru" + elementsFilm.attr("href"));
+            System.out.println(listFilms.get(listFilms.size()-1));
         }
+
     }
 }

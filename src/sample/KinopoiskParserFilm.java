@@ -24,6 +24,7 @@ public class KinopoiskParserFilm {
     public String actors;
 
     public void start (String kinoURL) {
+        System.out.println("url: " + kinoURL);
         Document doc = null;
         try {
 
@@ -32,8 +33,6 @@ public class KinopoiskParserFilm {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        String title = doc.title();
-
 
         Elements metaTags = doc.getElementsByTag("meta");
         for (Element metaTag : metaTags) {
@@ -45,9 +44,14 @@ public class KinopoiskParserFilm {
             }
 
         }
-//        System.out.println(doc.select("meta[property=title]").get(0).text());
 
-        name = fullName.substring(1, fullName.indexOf('(')-2);
+        System.out.println("fullName" + fullName);
+        System.out.println(metaTags.html());
+         int x1 = fullName.indexOf('(')-2;
+         int x2 = fullName.indexOf(',');
+
+        name = fullName.substring(1, x1);
+        if(x2 != -1) name += " / " + fullName.substring(x1+3, x2);
 
         Element table = doc.select("table").first();
 
