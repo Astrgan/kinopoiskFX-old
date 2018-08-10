@@ -135,7 +135,7 @@ public class KinopoiskParserFilm {
 
 
     public void save(String path){
-        dir = new File(fullName);
+        dir = new File(path, fullName);
         dir.mkdir();
         saveFilm();
     }

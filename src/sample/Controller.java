@@ -2,14 +2,18 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements Initializable {
 
     @FXML
     private ImageView poster;
@@ -47,6 +51,10 @@ public class Controller {
     @FXML
     private Button btnSave1;
 
+    @FXML
+    private TextField path;
+
+    FileChooser fileChooser = new FileChooser();
     KinopoiskParserFilm parser = new KinopoiskParserFilm();
     KinopoiskParserListYears listYears = new KinopoiskParserListYears();
     ArrayList<KinopoiskParserFilm> listFilms = new ArrayList<>();
@@ -87,7 +95,7 @@ public class Controller {
     }
 
     void loadfilm(KinopoiskParserFilm parser){
-
+        this.parser = parser;
         names.setText(parser.name);
         genres.setText(parser.genres);
         rating.setText(parser.rating);
@@ -123,7 +131,20 @@ public class Controller {
 
     @FXML
     void save(ActionEvent event) {
-        parser.save();
+        parser.save(path.getText());
     }
 
+    @FXML
+    void saveAll(ActionEvent event) {
+        for (KinopoiskParserFilm parser: listFilms) {
+            parser.save(path.getText());
+        }
+    }
+
+    @Override
+    public void initialize(java.net.URL location, ResourceBundle resources) {
+
+        fileChooser.setTitle("Open Resource File");
+        path.setText("/var/www/html/films");
+    }
 }

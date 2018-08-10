@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <ImageView fx:id="poster" fitHeight="200.0" fitWidth="183.0" layoutX="14.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="329.0" />
       <TextArea fx:id="description" layoutX="289.0" layoutY="246.0" prefHeight="239.0" prefWidth="327.0" wrapText="true" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="246.0" />
@@ -25,7 +25,7 @@
       <Text layoutX="12.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Актеры" wrappingWidth="59.29557228088379" AnchorPane.rightAnchor="557.7044277191162" AnchorPane.topAnchor="283.93310546875" />
       <Button layoutX="535.0" layoutY="531.0" mnemonicParsing="false" onAction="#nextFilm" prefHeight="49.0" prefWidth="83.0" text="Next" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="543.0" />
       <Button layoutX="12.0" layoutY="531.0" mnemonicParsing="false" onAction="#PrevFilm" prefHeight="49.0" prefWidth="83.0" text="Prev" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="543.0" />
-      <Button layoutX="273.0" layoutY="531.0" mnemonicParsing="false" onAction="#save" prefHeight="49.0" prefWidth="83.0" text="Save" AnchorPane.leftAnchor="273.0" AnchorPane.rightAnchor="273.0" AnchorPane.topAnchor="543.0" />
+      <Button layoutX="245.0" layoutY="543.0" mnemonicParsing="false" onAction="#save" prefHeight="49.0" prefWidth="83.0" text="Save" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="301.0" AnchorPane.topAnchor="543.0" />
       <TextField fx:id="URL" layoutX="75.0" layoutY="14.0" prefHeight="26.0" prefWidth="400.0" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="14.0" />
       <Text layoutX="4.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="URL" wrappingWidth="32.29557228088379" />
       <TextField fx:id="URLYear" layoutX="77.0" layoutY="48.0" prefHeight="26.0" prefWidth="400.0" AnchorPane.leftAnchor="77.0" AnchorPane.topAnchor="48.0" />
@@ -33,7 +33,8 @@
       <TextField fx:id="names" layoutX="335.0" layoutY="127.0" prefHeight="26.0" prefWidth="171.0" />
       <Text layoutX="256.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Название" wrappingWidth="66.29557122290134" />
       <Button fx:id="btnSave1" layoutX="506.0" layoutY="27.0" mnemonicParsing="false" onAction="#load" prefHeight="49.0" prefWidth="83.0" text="Load" />
-      <TextField fx:id="URLYear1" layoutX="75.0" layoutY="84.0" prefHeight="26.0" prefWidth="400.0" />
+      <TextField fx:id="path" layoutX="75.0" layoutY="84.0" prefHeight="26.0" prefWidth="400.0" />
       <Text layoutX="3.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Path save" wrappingWidth="59.295571222901344" />
+      <Button layoutX="325.0" layoutY="543.0" mnemonicParsing="false" onAction="#saveAll" prefHeight="49.0" prefWidth="59.0" text="ALL" />
    </children>
 </AnchorPane>
