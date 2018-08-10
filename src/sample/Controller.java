@@ -123,7 +123,7 @@ public class Controller {
 
     @FXML
     void save(ActionEvent event) {
-
+        parser.save();
     }
 
 }

@@ -1,11 +1,14 @@
 package sample;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 
@@ -22,6 +25,8 @@ public class KinopoiskParserFilm {
     public String description;
     public String rating;
     public String actors;
+    File dir;
+
 
     public void start (String kinoURL) {
         System.out.println("url: " + kinoURL);
@@ -123,6 +128,45 @@ public class KinopoiskParserFilm {
             out.close();
             in.close();*/
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void save(String path){
+        dir = new File(fullName);
+        dir.mkdir();
+        saveFilm();
+    }
+
+    private void saveFilm(){
+        try (
+
+                FileWriter factors = new FileWriter(dir.getAbsolutePath().toString() + "/actors.txt");
+                FileWriter fcountries = new FileWriter(dir.getAbsolutePath().toString() + "/countries.txt");
+                FileWriter fdescription = new FileWriter(dir.getAbsolutePath().toString() + "/description.txt");
+                FileWriter fgenres = new FileWriter(dir.getAbsolutePath().toString() + "/genres.txt");
+                FileWriter fnames = new FileWriter(dir.getAbsolutePath().toString() + "/names.txt");
+                FileWriter fwriters = new FileWriter(dir.getAbsolutePath().toString() + "/writers.txt");
+                FileWriter fyear = new FileWriter(dir.getAbsolutePath().toString() + "/year.txt")
+            ){
+
+            factors.write(actors);
+            fcountries.write(countries);
+            fdescription.write(description);
+            fgenres.write(genres);
+            fnames.write(name);
+            fwriters.write(writer);
+            fyear.write(year);
+
+            File image = new File(dir.getAbsolutePath().toString() + "/image.jpg");
+            BufferedImage bImage = SwingFXUtils.fromFXImage(this.image, null);
+            try {
+                ImageIO.write(bImage, "jpg", image);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
