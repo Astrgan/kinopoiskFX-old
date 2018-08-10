@@ -53,7 +53,7 @@ public class KinopoiskParserFilm {
         System.out.println("fullName" + fullName);
         System.out.println(metaTags.html());
          int x1 = fullName.indexOf('(')-2;
-         int x2 = fullName.indexOf(',');
+         int x2 = fullName.lastIndexOf(',');
 
         name = fullName.substring(1, x1);
         if(x2 != -1) name += " / " + fullName.substring(x1+3, x2);
@@ -160,10 +160,10 @@ public class KinopoiskParserFilm {
             fwriters.write(writer);
             fyear.write(year);
 
-            File image = new File(dir.getAbsolutePath().toString() + "/image.jpg");
+            File image = new File(dir.getAbsolutePath().toString() + "/image.png");
             BufferedImage bImage = SwingFXUtils.fromFXImage(this.image, null);
             try {
-                ImageIO.write(bImage, "jpg", image);
+                ImageIO.write(bImage, "png", image);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

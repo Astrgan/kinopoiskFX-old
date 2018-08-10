@@ -32,9 +32,10 @@
       <Text layoutX="3.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="URL-year " wrappingWidth="66.29556649923325" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="58.0" />
       <TextField fx:id="names" layoutX="335.0" layoutY="127.0" prefHeight="26.0" prefWidth="171.0" />
       <Text layoutX="256.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Название" wrappingWidth="66.29557122290134" />
-      <Button fx:id="btnSave1" layoutX="506.0" layoutY="27.0" mnemonicParsing="false" onAction="#load" prefHeight="49.0" prefWidth="83.0" text="Load" />
+      <Button fx:id="btnSave1" layoutX="483.0" layoutY="24.0" mnemonicParsing="false" onAction="#load" prefHeight="49.0" prefWidth="83.0" text="Load" />
       <TextField fx:id="path" layoutX="75.0" layoutY="84.0" prefHeight="26.0" prefWidth="400.0" />
       <Text layoutX="3.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Path save" wrappingWidth="59.295571222901344" />
       <Button layoutX="325.0" layoutY="543.0" mnemonicParsing="false" onAction="#saveAll" prefHeight="49.0" prefWidth="59.0" text="ALL" />
+      <Button layoutX="483.0" layoutY="85.0" mnemonicParsing="false" onAction="#choose" text="choose" />
    </children>
 </AnchorPane>

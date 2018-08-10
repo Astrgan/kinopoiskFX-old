@@ -8,6 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -146,5 +147,12 @@ public class Controller implements Initializable {
 
         fileChooser.setTitle("Open Resource File");
         path.setText("/var/www/html/films");
+    }
+
+    @FXML
+    void choose(ActionEvent event) {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select folder");
+        path.setText(chooser.showOpenDialog(new Stage()).getAbsolutePath().toString());
     }
 }
