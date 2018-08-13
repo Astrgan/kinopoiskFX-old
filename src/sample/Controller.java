@@ -1,6 +1,7 @@
 package sample;
 
 import com.google.gson.JsonElement;
+import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -95,7 +96,7 @@ public class Controller implements Initializable {
             flagLoop = false;
             btnLoad.setText("Stop");
 
-            Service<Void> service = new Service<Void>() {
+   /*         Service<Void> service = new Service<Void>() {
                 @Override
                 protected Task<Void> createTask() {
                     return new Task<Void>() {
@@ -109,8 +110,14 @@ public class Controller implements Initializable {
                     };
                 }
             };
-            service.start();
+            service.start();*/
 
+
+            Platform.runLater(() -> {
+                if (!URL.getText().equals("")) getFilm(URL.getText());
+                if (!URLYear.getText().equals("")) getYear(URLYear.getText());
+                if (!jsonPath.getText().equals("")) getJSON(jsonPath.getText());
+            });
 
         }else {
             flagLoop = true;
@@ -124,14 +131,16 @@ public class Controller implements Initializable {
         parserJson = new MoonwalkParserFilm(path);
 
         for (Film film: parserJson.listFilms) {
+            System.out.println("parse next");
             if (film.flag){
                 KinopoiskParserFilm filmParser = new KinopoiskParserFilm();
                 if (filmParser.start("https://www.kinopoisk.ru/film/" + film.kinopoisk_id, film.iframe_url, film.kinopoisk_id)){
                     System.out.println("Stop BAN!!!");
-                    break;
+                    flagLoop = true;
+                }else {
+                    listFilms.add(filmParser);
+                    film.flag = false;
                 }
-                listFilms.add(filmParser);
-                film.flag = false;
             }
             /*try {
                 Thread.sleep(10000);
@@ -141,8 +150,8 @@ public class Controller implements Initializable {
             if (flagLoop) break;
         }
         max = listFilms.size()-1;
-        loadfilm(listFilms.get(index));
-        parserJson.save();
+         if(listFilms.size() > 0) loadfilm(listFilms.get(index));
+        //parserJson.save();
         btnLoad.setText("Load");
         System.out.println("STOP getJSON");
     }
