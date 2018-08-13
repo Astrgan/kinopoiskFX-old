@@ -14,17 +14,17 @@ import java.net.URL;
 
 public class KinopoiskParserFilm {
 
-    public String name;
-    String fullName;
-    public String writer;
-    public String countries;
-    public String year;
-    public String genres;
+    public String name = "";
+    String fullName = "";
+    public String writer = "";
+    public String countries = "";
+    public String year = "";
+    public String genres = "";
     public Image image;
-    public String URLPoster;
-    public String description;
-    public String rating;
-    public String actors;
+    public String URLPoster = "";
+    public String description = "";
+    public String rating = "";
+    public String actors = "";
     File dir;
     String iframeCode, kinopoiskID;
 
@@ -161,7 +161,7 @@ public class KinopoiskParserFilm {
 
 
     public void save(String path){
-        dir = new File(path, fullName);
+        dir = new File(path, kinopoiskID);
         dir.mkdir();
         saveFilm();
     }

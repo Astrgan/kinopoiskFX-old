@@ -19,8 +19,15 @@ import sample.Logics.KinopoiskParserFilm;
 import sample.Logics.KinopoiskParserListYears;
 import sample.Logics.MoonwalkParserFilm;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import static jdk.nashorn.internal.objects.Global.getJSON;
+import static jdk.nashorn.internal.objects.NativeDate.getYear;
 
 public class Controller implements Initializable {
 
@@ -79,6 +86,7 @@ public class Controller implements Initializable {
     int index = 0;
     int min = 0;
     int max;
+    int num = 0;
 
     @FXML
     void PrevFilm(ActionEvent event) {
@@ -96,7 +104,7 @@ public class Controller implements Initializable {
             flagLoop = false;
             btnLoad.setText("Stop");
 
-   /*         Service<Void> service = new Service<Void>() {
+            Service<Void> service = new Service<Void>() {
                 @Override
                 protected Task<Void> createTask() {
                     return new Task<Void>() {
@@ -110,14 +118,16 @@ public class Controller implements Initializable {
                     };
                 }
             };
-            service.start();*/
+            service.start();
 
 
-            Platform.runLater(() -> {
+         /*   Platform.runLater(() -> {
                 if (!URL.getText().equals("")) getFilm(URL.getText());
                 if (!URLYear.getText().equals("")) getYear(URLYear.getText());
                 if (!jsonPath.getText().equals("")) getJSON(jsonPath.getText());
-            });
+            });*/
+
+
 
         }else {
             flagLoop = true;
@@ -130,7 +140,8 @@ public class Controller implements Initializable {
     void getJSON(String path){
         parserJson = new MoonwalkParserFilm(path);
 
-        for (Film film: parserJson.listFilms) {
+        for (; num < parserJson.listFilms.size(); num++) {
+            Film film = parserJson.listFilms.get(num);
             System.out.println("parse next");
             if (film.flag){
                 KinopoiskParserFilm filmParser = new KinopoiskParserFilm();
@@ -142,16 +153,16 @@ public class Controller implements Initializable {
                     film.flag = false;
                 }
             }
-            /*try {
+            try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }*/
+            }
             if (flagLoop) break;
         }
         max = listFilms.size()-1;
          if(listFilms.size() > 0) loadfilm(listFilms.get(index));
-        //parserJson.save();
+        saveNum(num);
         btnLoad.setText("Load");
         System.out.println("STOP getJSON");
     }
@@ -159,7 +170,7 @@ public class Controller implements Initializable {
     void getYear(String url){
 
         listYears.start(url);
-
+        int i =0;
         for (String path: listYears.listFilms) {
             KinopoiskParserFilm film = new KinopoiskParserFilm();
             film.start(path);
@@ -227,8 +238,25 @@ public class Controller implements Initializable {
         chooser.setTitle("Open Resource File");
         path.setText("/var/www/html/films");
         jsonPath.setText("moviJson.json");
+
+
+        try {
+            System.out.println("num: " + Files.readAllLines(Paths.get("num.txt")).get(0));
+            num = Integer.parseInt(Files.readAllLines(Paths.get("num.txt")).get(0));
+
+        } catch (IOException e) {
+
+        }
     }
 
+    void saveNum(int num){
+        try (FileWriter numTxt = new FileWriter("num.txt"))
+        {
+            numTxt.write(Integer.toString(num+1));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     @FXML
     void choose(ActionEvent event) {
 
