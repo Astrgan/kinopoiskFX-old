@@ -78,6 +78,7 @@ public class Controller implements Initializable {
     MoonwalkParserFilm parserJson;
     boolean flagLoad = true;
     boolean flagLoop = false;
+    int k = 0;
 
     KinopoiskParserFilm parser = new KinopoiskParserFilm();
     KinopoiskParserListYears listYears = new KinopoiskParserListYears();
@@ -155,6 +156,10 @@ public class Controller implements Initializable {
             }
             try {
                 Thread.sleep(10000);
+                if (k++ == 5){
+                    k=0;
+                    Thread.sleep(60000);
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
