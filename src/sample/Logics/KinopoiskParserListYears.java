@@ -1,4 +1,4 @@
-package sample;
+package sample.Logics;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,6 +14,12 @@ public class KinopoiskParserListYears {
     public void start(String url) {
         Document doc = null;
         try {
+/*            //set HTTP proxy host to 127.0.0.1 (localhost)
+            System.setProperty("http.proxyHost", "127.0.0.1");
+
+            //set HTTP proxy port to 3128
+            System.setProperty("http.proxyPort", "8081");*/
+
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
             e.printStackTrace();

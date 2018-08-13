@@ -7,35 +7,38 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0" prefWidth="629.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <ImageView fx:id="poster" fitHeight="200.0" fitWidth="183.0" layoutX="14.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="329.0" />
-      <TextArea fx:id="description" layoutX="289.0" layoutY="246.0" prefHeight="239.0" prefWidth="327.0" wrapText="true" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="246.0" />
-      <TextField fx:id="year" layoutX="334.0" layoutY="163.0" prefHeight="26.0" prefWidth="171.0" AnchorPane.rightAnchor="124.0" AnchorPane.topAnchor="163.0" />
-      <Text layoutX="261.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Год:" wrappingWidth="32.29557228088379" AnchorPane.rightAnchor="335.7044277191162" AnchorPane.topAnchor="168.93310546875" />
-      <TextField fx:id="country" layoutX="334.0" layoutY="200.0" prefHeight="26.0" prefWidth="171.0" AnchorPane.rightAnchor="124.0" AnchorPane.topAnchor="200.0" />
-      <Text layoutX="259.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Страны" wrappingWidth="59.295571222901344" AnchorPane.rightAnchor="310.70442877709866" AnchorPane.topAnchor="208.0" />
-      <TextField fx:id="genres" layoutX="77.0" layoutY="125.0" prefHeight="26.0" prefWidth="171.0" AnchorPane.rightAnchor="381.0" AnchorPane.topAnchor="125.0" />
-      <Text layoutX="11.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Жанры" wrappingWidth="49.29557228088379" AnchorPane.rightAnchor="568.7044277191162" AnchorPane.topAnchor="136.93310546875" />
-      <TextField fx:id="writer" layoutX="78.0" layoutY="164.0" prefHeight="26.0" prefWidth="171.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="164.0" />
-      <Text layoutX="10.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Режисер" wrappingWidth="66.29556649923325" AnchorPane.rightAnchor="552.7044335007668" AnchorPane.topAnchor="169.0" />
-      <TextField fx:id="rating" layoutX="77.0" layoutY="203.0" prefHeight="26.0" prefWidth="171.0" AnchorPane.rightAnchor="381.0" AnchorPane.topAnchor="203.0" />
-      <Text layoutX="12.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Рейтинг" wrappingWidth="59.29557228088379" AnchorPane.rightAnchor="557.7044277191162" AnchorPane.topAnchor="206.93310546875" />
-      <TextArea fx:id="actors" layoutX="78.0" layoutY="246.0" prefHeight="76.0" prefWidth="171.0" wrapText="true" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="246.0" />
-      <Text layoutX="12.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Актеры" wrappingWidth="59.29557228088379" AnchorPane.rightAnchor="557.7044277191162" AnchorPane.topAnchor="283.93310546875" />
-      <Button layoutX="535.0" layoutY="531.0" mnemonicParsing="false" onAction="#nextFilm" prefHeight="49.0" prefWidth="83.0" text="Next" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="543.0" />
-      <Button layoutX="12.0" layoutY="531.0" mnemonicParsing="false" onAction="#PrevFilm" prefHeight="49.0" prefWidth="83.0" text="Prev" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="543.0" />
-      <Button layoutX="245.0" layoutY="543.0" mnemonicParsing="false" onAction="#save" prefHeight="49.0" prefWidth="83.0" text="Save" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="301.0" AnchorPane.topAnchor="543.0" />
-      <TextField fx:id="URL" layoutX="75.0" layoutY="14.0" prefHeight="26.0" prefWidth="400.0" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="14.0" />
+      <ImageView fx:id="poster" fitHeight="259.0" fitWidth="183.0" layoutX="14.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="84.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="378.0" />
+      <TextArea fx:id="description" layoutX="291.0" layoutY="290.0" prefHeight="239.0" prefWidth="327.0" wrapText="true" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="290.0" />
+      <TextField fx:id="year" layoutX="336.0" layoutY="205.0" prefHeight="26.0" prefWidth="171.0" AnchorPane.rightAnchor="122.0" AnchorPane.topAnchor="205.0" />
+      <Text layoutX="262.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Год:" wrappingWidth="32.29557228088379" AnchorPane.rightAnchor="334.7044277191162" AnchorPane.topAnchor="211.0" />
+      <TextField fx:id="country" layoutX="336.0" layoutY="242.0" prefHeight="26.0" prefWidth="171.0" AnchorPane.rightAnchor="122.0" AnchorPane.topAnchor="242.0" />
+      <Text layoutX="260.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Страны" wrappingWidth="59.295571222901344" AnchorPane.rightAnchor="309.70442877709866" AnchorPane.topAnchor="250.0" />
+      <TextField fx:id="genres" layoutX="79.0" layoutY="167.0" prefHeight="26.0" prefWidth="171.0" AnchorPane.rightAnchor="379.0" AnchorPane.topAnchor="167.0" />
+      <Text layoutX="12.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Жанры" wrappingWidth="49.29557228088379" AnchorPane.rightAnchor="567.7044277191162" AnchorPane.topAnchor="179.0" />
+      <TextField fx:id="writer" layoutX="80.0" layoutY="206.0" prefHeight="26.0" prefWidth="171.0" AnchorPane.rightAnchor="378.0" AnchorPane.topAnchor="206.0" />
+      <Text layoutX="11.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Режисер" wrappingWidth="66.29556649923325" AnchorPane.rightAnchor="551.7044335007668" AnchorPane.topAnchor="211.0" />
+      <TextField fx:id="rating" layoutX="79.0" layoutY="245.0" prefHeight="26.0" prefWidth="171.0" AnchorPane.rightAnchor="379.0" AnchorPane.topAnchor="245.0" />
+      <Text layoutX="13.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Рейтинг" wrappingWidth="59.29557228088379" AnchorPane.rightAnchor="556.7044277191162" AnchorPane.topAnchor="249.0" />
+      <TextArea fx:id="actors" layoutX="80.0" layoutY="288.0" prefHeight="76.0" prefWidth="171.0" wrapText="true" AnchorPane.rightAnchor="378.0" AnchorPane.topAnchor="288.0" />
+      <Text layoutX="13.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Актеры" wrappingWidth="59.29557228088379" AnchorPane.rightAnchor="556.7044277191162" AnchorPane.topAnchor="326.05078125" />
+      <Button layoutX="535.0" layoutY="658.0" mnemonicParsing="false" onAction="#nextFilm" prefHeight="49.0" prefWidth="83.0" text="Next" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="658.0" />
+      <Button layoutX="12.0" layoutY="658.0" mnemonicParsing="false" onAction="#PrevFilm" prefHeight="49.0" prefWidth="83.0" text="Prev" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="658.0" />
+      <Button layoutX="245.0" layoutY="658.0" mnemonicParsing="false" onAction="#save" prefHeight="49.0" prefWidth="83.0" text="Save" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="301.0" AnchorPane.topAnchor="658.0" />
+      <TextField fx:id="URL" layoutX="75.0" layoutY="14.0" prefHeight="26.0" prefWidth="400.0" promptText="Kinopoisk" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="14.0" />
       <Text layoutX="4.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="URL" wrappingWidth="32.29557228088379" />
-      <TextField fx:id="URLYear" layoutX="77.0" layoutY="48.0" prefHeight="26.0" prefWidth="400.0" AnchorPane.leftAnchor="77.0" AnchorPane.topAnchor="48.0" />
+      <TextField fx:id="URLYear" layoutX="77.0" layoutY="48.0" prefHeight="26.0" prefWidth="400.0" promptText="kinopoisk year" AnchorPane.leftAnchor="77.0" AnchorPane.topAnchor="48.0" />
       <Text layoutX="3.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="URL-year " wrappingWidth="66.29556649923325" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="58.0" />
-      <TextField fx:id="names" layoutX="335.0" layoutY="127.0" prefHeight="26.0" prefWidth="171.0" />
-      <Text layoutX="256.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Название" wrappingWidth="66.29557122290134" />
-      <Button fx:id="btnSave1" layoutX="483.0" layoutY="24.0" mnemonicParsing="false" onAction="#load" prefHeight="49.0" prefWidth="83.0" text="Load" />
-      <TextField fx:id="path" layoutX="75.0" layoutY="84.0" prefHeight="26.0" prefWidth="400.0" />
-      <Text layoutX="3.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Path save" wrappingWidth="59.295571222901344" />
-      <Button layoutX="325.0" layoutY="543.0" mnemonicParsing="false" onAction="#saveAll" prefHeight="49.0" prefWidth="59.0" text="ALL" />
-      <Button layoutX="483.0" layoutY="85.0" mnemonicParsing="false" onAction="#choose" text="choose" />
+      <TextField fx:id="names" layoutX="337.0" layoutY="169.0" prefHeight="26.0" prefWidth="171.0" />
+      <Text layoutX="258.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Название" wrappingWidth="66.29557122290134" />
+      <Button fx:id="btnLoad" layoutX="483.0" layoutY="24.0" mnemonicParsing="false" onAction="#load" prefHeight="49.0" prefWidth="83.0" text="Load" />
+      <TextField fx:id="path" layoutX="75.0" layoutY="116.0" prefHeight="26.0" prefWidth="400.0" />
+      <Text layoutX="3.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Path save" wrappingWidth="59.295571222901344" />
+      <Button layoutX="325.0" layoutY="658.0" mnemonicParsing="false" onAction="#saveAll" prefHeight="49.0" prefWidth="59.0" text="ALL" />
+      <Button layoutX="483.0" layoutY="117.0" mnemonicParsing="false" onAction="#choose" text="choose" />
+      <TextField fx:id="jsonPath" layoutX="74.0" layoutY="82.0" prefHeight="26.0" prefWidth="400.0" promptText="jsonformatter.txt" />
+      <Text layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="File JSON" wrappingWidth="66.29556649923325" />
+      <Button layoutX="483.0" layoutY="85.0" mnemonicParsing="false" onAction="#chooseJSON" text="choose" />
    </children>
 </AnchorPane>

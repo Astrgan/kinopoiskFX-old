@@ -1,5 +1,8 @@
 package sample;
 
+import com.google.gson.JsonElement;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,10 +10,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import sample.Logics.Film;
+import sample.Logics.KinopoiskParserFilm;
+import sample.Logics.KinopoiskParserListYears;
+import sample.Logics.MoonwalkParserFilm;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -50,15 +57,24 @@ public class Controller implements Initializable {
     private TextField names;
 
     @FXML
-    private Button btnSave1;
+    private Button btnLoad;
 
     @FXML
     private TextField path;
 
-    FileChooser fileChooser = new FileChooser();
+    @FXML
+    private TextField jsonPath;
+
+    @FXML
+    DirectoryChooser chooser = new DirectoryChooser();
+    MoonwalkParserFilm parserJson;
+    boolean flagLoad = true;
+    boolean flagLoop = false;
+
     KinopoiskParserFilm parser = new KinopoiskParserFilm();
     KinopoiskParserListYears listYears = new KinopoiskParserListYears();
     ArrayList<KinopoiskParserFilm> listFilms = new ArrayList<>();
+
     int index = 0;
     int min = 0;
     int max;
@@ -73,8 +89,62 @@ public class Controller implements Initializable {
 
     @FXML
     void load(ActionEvent event) {
-        if(!URL.getText().equals("")) getFilm(URL.getText());
-        if(!URLYear.getText().equals("")) getYear(URLYear.getText());
+        if (flagLoad) {
+
+            flagLoad = false;
+            flagLoop = false;
+            btnLoad.setText("Stop");
+
+            Service<Void> service = new Service<Void>() {
+                @Override
+                protected Task<Void> createTask() {
+                    return new Task<Void>() {
+                        @Override
+                        protected Void call() throws Exception {
+                            if (!URL.getText().equals("")) getFilm(URL.getText());
+                            if (!URLYear.getText().equals("")) getYear(URLYear.getText());
+                            if (!jsonPath.getText().equals("")) getJSON(jsonPath.getText());
+                            return null;
+                        }
+                    };
+                }
+            };
+            service.start();
+
+
+        }else {
+            flagLoop = true;
+            btnLoad.setText("Load");
+
+        }
+
+    }
+
+    void getJSON(String path){
+        parserJson = new MoonwalkParserFilm(path);
+
+        for (Film film: parserJson.listFilms) {
+            if (film.flag){
+                KinopoiskParserFilm filmParser = new KinopoiskParserFilm();
+                if (filmParser.start("https://www.kinopoisk.ru/film/" + film.kinopoisk_id, film.iframe_url, film.kinopoisk_id)){
+                    System.out.println("Stop BAN!!!");
+                    break;
+                }
+                listFilms.add(filmParser);
+                film.flag = false;
+            }
+            /*try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
+            if (flagLoop) break;
+        }
+        max = listFilms.size()-1;
+        loadfilm(listFilms.get(index));
+        parserJson.save();
+        btnLoad.setText("Load");
+        System.out.println("STOP getJSON");
     }
 
     void getYear(String url){
@@ -86,7 +156,7 @@ public class Controller implements Initializable {
             film.start(path);
             listFilms.add(film);
             try {
-                Thread.sleep(10000);
+                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -145,14 +215,22 @@ public class Controller implements Initializable {
     @Override
     public void initialize(java.net.URL location, ResourceBundle resources) {
 
-        fileChooser.setTitle("Open Resource File");
+        chooser.setTitle("Open Resource File");
         path.setText("/var/www/html/films");
+        jsonPath.setText("moviJson.json");
     }
 
     @FXML
     void choose(ActionEvent event) {
+
+        chooser.setTitle("Select folder");
+        path.setText(chooser.showDialog(new Stage()).getAbsolutePath().toString());
+    }
+
+    @FXML
+    void chooseJSON(ActionEvent event) {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Select folder");
-        path.setText(chooser.showOpenDialog(new Stage()).getAbsolutePath().toString());
+        jsonPath.setText(chooser.showOpenDialog(new Stage()).getAbsolutePath().toString());
     }
 }

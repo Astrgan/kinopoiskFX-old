@@ -1,4 +1,4 @@
-package sample;
+package sample.Logics;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -26,17 +26,37 @@ public class KinopoiskParserFilm {
     public String rating;
     public String actors;
     File dir;
+    String iframeCode, kinopoiskID;
 
+    public boolean start (String kinoURL, String iframe, String kinopoiskID) {
+        this.iframeCode = iframe;
+        this.kinopoiskID = kinopoiskID;
+        return start(kinoURL);
 
-    public void start (String kinoURL) {
+    }
+    public boolean start (String kinoURL) {
         System.out.println("url: " + kinoURL);
         Document doc = null;
         try {
+            //set HTTP proxy host to 127.0.0.1 (localhost)
+            System.setProperty("https.proxyHost", "127.0.0.1");
 
-            doc = Jsoup.connect(kinoURL).get();
+            //set HTTP proxy port to 8081
+            System.setProperty("https.proxyPort", "8081");
+
+            doc = Jsoup
+                    .connect(kinoURL)
+                    .userAgent("Mozilla/5.0")
+                    .timeout(10 * 1000)
+                    .get();
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        if(doc.title().equals("КиноПоиск.ru")){
+            System.out.println("BAN !!!");
+            return true;
         }
 
         Elements metaTags = doc.getElementsByTag("meta");
@@ -47,11 +67,11 @@ public class KinopoiskParserFilm {
                 System.out.println(fullName);
                 break;
             }
-
         }
 
         System.out.println("fullName" + fullName);
-        System.out.println(metaTags.html());
+        System.out.println(doc.title());
+
          int x1 = fullName.indexOf('(')-2;
          int x2 = fullName.lastIndexOf(',');
 
@@ -65,24 +85,27 @@ public class KinopoiskParserFilm {
         for (int i = 0; i < rows.size(); i++) {
             Element row = rows.get(i); //по номеру индекса получает строку
             Elements cols = row.select("td");// разбиваем полученную строку по тегу  на столбы
-            System.out.print(cols.get(0).text() + ": ");// первый столбец
-            System.out.print(cols.get(1).text());
+//            System.out.print(cols.get(0).text() + ": ");// первый столбец
+//            System.out.print(cols.get(1).text());
             if(cols.get(0).text().contains("режиссер")) writer = cols.get(1).text();
             if(cols.get(0).text().contains("жанр")) genres = cols.get(1).text();
             if(cols.get(0).text().contains("год")) year = cols.get(1).text();
             if(cols.get(0).text().contains("страна")) countries = cols.get(1).text();
 
-            System.out.println();
+//            System.out.println();
         }
 
-        description = doc.select("div[itemprop=description]").get(0).text();
-        rating = doc.select("span[class=rating_ball]").get(0).text();
-        System.out.println(doc.select("div[itemprop=description]").get(0).text());
-        System.out.println(doc.select("span[class=rating_ball]").get(0).text());
+        Elements elementsDescription = doc.select("div[itemprop=description]");
+        if (elementsDescription.size() != 0) description = elementsDescription.get(0).text();
+//        System.out.println("description: " + description);
+
+        Elements elementsRating = doc.select("span[class=rating_ball]");
+        if (elementsRating.size() != 0) rating = elementsRating.get(0).text();
+
 
         Element link = doc.select("link[rel=\"image_src\"]").first();
         String relHref = link.attr("href");
-        System.out.println(relHref);
+//        System.out.println(relHref);
 
 
         Element divActors = doc.select("div[id=actorList] > ul").get(0);
@@ -108,6 +131,9 @@ public class KinopoiskParserFilm {
 
         URLPoster = relHref;
         getImage(relHref);
+
+
+        return false;
     }
 
     public void getImage(String strURL){
@@ -149,7 +175,10 @@ public class KinopoiskParserFilm {
                 FileWriter fgenres = new FileWriter(dir.getAbsolutePath().toString() + "/genres.txt");
                 FileWriter fnames = new FileWriter(dir.getAbsolutePath().toString() + "/names.txt");
                 FileWriter fwriters = new FileWriter(dir.getAbsolutePath().toString() + "/writers.txt");
-                FileWriter fyear = new FileWriter(dir.getAbsolutePath().toString() + "/year.txt")
+                FileWriter fyear = new FileWriter(dir.getAbsolutePath().toString() + "/year.txt");
+                FileWriter iframe = new FileWriter(dir.getAbsolutePath().toString() + "/iframe.txt");
+                FileWriter kinopoisk_id = new FileWriter(dir.getAbsolutePath().toString() + "/kinopoisk_id.txt")
+
             ){
 
             factors.write(actors);
@@ -159,6 +188,8 @@ public class KinopoiskParserFilm {
             fnames.write(name);
             fwriters.write(writer);
             fyear.write(year);
+            iframe.write(iframeCode);
+            kinopoisk_id.write(kinopoiskID);
 
             File image = new File(dir.getAbsolutePath().toString() + "/image.png");
             BufferedImage bImage = SwingFXUtils.fromFXImage(this.image, null);
