@@ -31,7 +31,8 @@ public class KinopoiskParserFilm {
     public boolean start (String kinoURL, String iframe, String kinopoiskID) {
         this.iframeCode = iframe;
         this.kinopoiskID = kinopoiskID;
-        return start(kinoURL);
+        if (kinopoiskID != null) return start(kinoURL);
+        else return false;
 
     }
     public boolean start (String kinoURL) {
@@ -87,6 +88,7 @@ public class KinopoiskParserFilm {
             Elements cols = row.select("td");// разбиваем полученную строку по тегу  на столбы
 //            System.out.print(cols.get(0).text() + ": ");// первый столбец
 //            System.out.print(cols.get(1).text());
+
             if(cols.get(0).text().contains("режиссер")) writer = cols.get(1).text();
             if(cols.get(0).text().contains("жанр")) genres = cols.get(1).text();
             if(cols.get(0).text().contains("год")) year = cols.get(1).text();
@@ -108,7 +110,12 @@ public class KinopoiskParserFilm {
 //        System.out.println(relHref);
 
 
-        Element divActors = doc.select("div[id=actorList] > ul").get(0);
+        Element divActors;
+        Elements divActorsDoc = doc.select("div[id=actorList] > ul");
+        if (divActorsDoc.size() != 0 ){
+            divActors = divActorsDoc.get(0);
+
+
         Elements listActors = divActors.children();
         StringBuilder stringBuilder = new StringBuilder();
         for (Element elem : listActors) {
@@ -120,6 +127,7 @@ public class KinopoiskParserFilm {
             //            System.out.println(elem.text());
         }
         actors = stringBuilder.toString();
+        }
 
 
 
@@ -132,7 +140,7 @@ public class KinopoiskParserFilm {
         URLPoster = relHref;
         getImage(relHref);
 
-
+        doc = null;
         return false;
     }
 

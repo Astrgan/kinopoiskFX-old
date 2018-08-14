@@ -105,13 +105,15 @@ public class Controller implements Initializable {
             flagLoop = false;
             btnLoad.setText("Stop");
 
+            if (!URL.getText().equals("")) getFilm(URL.getText());
+
             Service<Void> service = new Service<Void>() {
                 @Override
                 protected Task<Void> createTask() {
                     return new Task<Void>() {
                         @Override
                         protected Void call() throws Exception {
-                            if (!URL.getText().equals("")) getFilm(URL.getText());
+//                            if (!URL.getText().equals("")) getFilm(URL.getText());
                             if (!URLYear.getText().equals("")) getYear(URLYear.getText());
                             if (!jsonPath.getText().equals("")) getJSON(jsonPath.getText());
                             return null;
@@ -144,25 +146,24 @@ public class Controller implements Initializable {
         for (; num < parserJson.listFilms.size(); num++) {
             Film film = parserJson.listFilms.get(num);
             System.out.println("parse next");
-            if (film.flag){
+            if (film.kinopoisk_id != null){
                 KinopoiskParserFilm filmParser = new KinopoiskParserFilm();
                 if (filmParser.start("https://www.kinopoisk.ru/film/" + film.kinopoisk_id, film.iframe_url, film.kinopoisk_id)){
                     System.out.println("Stop BAN!!!");
-                    flagLoop = true;
+
+                    pause(20*60);
                 }else {
                     listFilms.add(filmParser);
-                    film.flag = false;
+
                 }
             }
-            try {
-                Thread.sleep(10000);
-                if (k++ == 5){
-                    k=0;
-                    Thread.sleep(60000);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+
+            pause(10);
+            if (k++ == 5){
+                k=0;
+                pause(60);
             }
+
             if (flagLoop) break;
         }
         max = listFilms.size()-1;
@@ -180,11 +181,7 @@ public class Controller implements Initializable {
             KinopoiskParserFilm film = new KinopoiskParserFilm();
             film.start(path);
             listFilms.add(film);
-            try {
-                Thread.sleep(30000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            pause(15);
         }
         max = listFilms.size()-1;
         loadfilm(listFilms.get(index));
@@ -274,5 +271,17 @@ public class Controller implements Initializable {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Select folder");
         jsonPath.setText(chooser.showOpenDialog(new Stage()).getAbsolutePath().toString());
+    }
+
+    void pause(int time){
+
+        try {
+            for (int i=0; i<time; i++) {
+                if (flagLoop) break;
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
