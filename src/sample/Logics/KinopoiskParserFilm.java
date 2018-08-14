@@ -90,8 +90,11 @@ public class KinopoiskParserFilm {
 //            System.out.print(cols.get(1).text());
 
             if(cols.get(0).text().contains("режиссер")) writer = cols.get(1).text();
-            if(cols.get(0).text().contains("жанр")) genres = cols.get(1).text();
-            if(cols.get(0).text().contains("год")) year = cols.get(1).text();
+            if(cols.get(0).text().contains("жанр")){
+                if (!cols.get(1).text().contains("... слова"))genres = cols.get(1).text();
+                else genres = cols.get(1).text().substring(0, cols.get(1).text().length()-11);
+            }
+            if(cols.get(0).text().contains("год")) year = cols.get(1).text().substring(0, 4);
             if(cols.get(0).text().contains("страна")) countries = cols.get(1).text();
 
 //            System.out.println();
