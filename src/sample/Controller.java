@@ -79,6 +79,7 @@ public class Controller implements Initializable {
     boolean flagLoad = true;
     boolean flagLoop = false;
     int k = 0;
+    int k2 = 0;
 
     KinopoiskParserFilm parser = new KinopoiskParserFilm();
     KinopoiskParserListYears listYears = new KinopoiskParserListYears();
@@ -151,7 +152,7 @@ public class Controller implements Initializable {
                 if (filmParser.start("https://www.kinopoisk.ru/film/" + film.kinopoisk_id, film.iframe_url, film.kinopoisk_id)){
                     System.out.println("Stop BAN!!!");
 
-                    pause(20*60);
+                    pause(50*60);
                 }else {
                     listFilms.add(filmParser);
 
@@ -161,7 +162,10 @@ public class Controller implements Initializable {
             pause(10);
             if (k++ == 5){
                 k=0;
-                pause(60);
+                pause(1*60);
+            }else if (k2 ++ == 30){
+                k2=0;
+                pause(10*60);
             }
 
             if (flagLoop) break;

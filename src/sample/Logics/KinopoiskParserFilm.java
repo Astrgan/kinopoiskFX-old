@@ -25,6 +25,8 @@ public class KinopoiskParserFilm {
     public String description = "";
     public String rating = "";
     public String actors = "";
+    public String premiere = "";
+
     File dir;
     String iframeCode, kinopoiskID;
 
@@ -48,7 +50,7 @@ public class KinopoiskParserFilm {
             doc = Jsoup
                     .connect(kinoURL)
                     .userAgent("Mozilla/5.0")
-                    .timeout(10 * 1000)
+                    .timeout(10 * 5000)
                     .get();
 
         } catch (IOException e) {
@@ -77,7 +79,9 @@ public class KinopoiskParserFilm {
          int x2 = fullName.lastIndexOf(',');
 
         name = fullName.substring(1, x1);
-        if(x2 != -1) name += " / " + fullName.substring(x1+3, x2);
+        if(x2 != -1 ){
+            if (!name.equals(fullName.substring(x1+3, x2)))name += " / " + fullName.substring(x1+3, x2);
+        }
 
         Element table = doc.select("table").first();
 
@@ -96,6 +100,7 @@ public class KinopoiskParserFilm {
             }
             if(cols.get(0).text().contains("год")) year = cols.get(1).text().substring(0, 4);
             if(cols.get(0).text().contains("страна")) countries = cols.get(1).text();
+            if(cols.get(0).text().contains("премьера")) premiere = cols.get(1).text();
 
 //            System.out.println();
         }
@@ -188,10 +193,12 @@ public class KinopoiskParserFilm {
                 FileWriter fwriters = new FileWriter(dir.getAbsolutePath().toString() + "/writers.txt");
                 FileWriter fyear = new FileWriter(dir.getAbsolutePath().toString() + "/year.txt");
                 FileWriter iframe = new FileWriter(dir.getAbsolutePath().toString() + "/iframe.txt");
-                FileWriter kinopoisk_id = new FileWriter(dir.getAbsolutePath().toString() + "/kinopoisk_id.txt")
+                FileWriter kinopoisk_id = new FileWriter(dir.getAbsolutePath().toString() + "/kinopoisk_id.txt");
+                FileWriter fpremiere = new FileWriter(dir.getAbsolutePath().toString() + "/premiere.txt")
 
-            ){
+        ){
 
+            fpremiere.write(premiere);
             factors.write(actors);
             fcountries.write(countries);
             fdescription.write(description);
