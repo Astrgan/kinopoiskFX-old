@@ -163,7 +163,7 @@ public class Controller implements Initializable {
             if (k++ == 5){
                 k=0;
                 pause(1*60);
-            }else if (k2 ++ == 30){
+            }else if (k2 ++ == 10){
                 k2=0;
                 pause(10*60);
             }
@@ -242,8 +242,9 @@ public class Controller implements Initializable {
     public void initialize(java.net.URL location, ResourceBundle resources) {
 
         chooser.setTitle("Open Resource File");
-        path.setText("/var/www/html/films");
-        jsonPath.setText("moviJson.json");
+//        path.setText("/var/www/html/films");
+        path.setText("C:\\Apache24\\films\\films6");
+        jsonPath.setText("D:\\movies_foreign.json");
 
 
         try {

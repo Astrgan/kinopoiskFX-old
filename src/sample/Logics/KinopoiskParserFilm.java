@@ -26,6 +26,7 @@ public class KinopoiskParserFilm {
     public String rating = "";
     public String actors = "";
     public String premiere = "";
+    Document doc = null;
 
     File dir;
     String iframeCode, kinopoiskID;
@@ -39,7 +40,7 @@ public class KinopoiskParserFilm {
     }
     public boolean start (String kinoURL) {
         System.out.println("url: " + kinoURL);
-        Document doc = null;
+
         try {
             //set HTTP proxy host to 127.0.0.1 (localhost)
             System.setProperty("https.proxyHost", "127.0.0.1");
@@ -93,24 +94,27 @@ public class KinopoiskParserFilm {
 //            System.out.print(cols.get(0).text() + ": ");// первый столбец
 //            System.out.print(cols.get(1).text());
 
+
             if(cols.get(0).text().contains("режиссер")) writer = cols.get(1).text();
             if(cols.get(0).text().contains("жанр")){
                 if (!cols.get(1).text().contains("... слова"))genres = cols.get(1).text();
                 else genres = cols.get(1).text().substring(0, cols.get(1).text().length()-11);
             }
-            if(cols.get(0).text().contains("год")) year = cols.get(1).text().substring(0, 4);
-            if(cols.get(0).text().contains("страна")) countries = cols.get(1).text();
+            if(cols.get(0).text().contains("год") && cols.get(1).text().length() > 3) year = cols.get(1).text().substring(0, 4);
+            if(cols.get(0).text().contains("страна") && cols.size() > 1) countries = cols.get(1).text();
             if(cols.get(0).text().contains("премьера")) premiere = cols.get(1).text();
 
 //            System.out.println();
         }
+
 
         Elements elementsDescription = doc.select("div[itemprop=description]");
         if (elementsDescription.size() != 0) description = elementsDescription.get(0).text();
 //        System.out.println("description: " + description);
 
         Elements elementsRating = doc.select("span[class=rating_ball]");
-        if (elementsRating.size() != 0) rating = elementsRating.get(0).text();
+        System.out.println("elementsRating.size() " + elementsRating.size() );
+        if (elementsRating.size() != 0 ) rating = elementsRating.get(0).text();
 
 
         Element link = doc.select("link[rel=\"image_src\"]").first();
@@ -148,7 +152,7 @@ public class KinopoiskParserFilm {
         URLPoster = relHref;
         getImage(relHref);
 
-        doc = null;
+//        doc = null;
         return false;
     }
 
@@ -194,10 +198,12 @@ public class KinopoiskParserFilm {
                 FileWriter fyear = new FileWriter(dir.getAbsolutePath().toString() + "/year.txt");
                 FileWriter iframe = new FileWriter(dir.getAbsolutePath().toString() + "/iframe.txt");
                 FileWriter kinopoisk_id = new FileWriter(dir.getAbsolutePath().toString() + "/kinopoisk_id.txt");
-                FileWriter fpremiere = new FileWriter(dir.getAbsolutePath().toString() + "/premiere.txt")
+                FileWriter fpremiere = new FileWriter(dir.getAbsolutePath().toString() + "/premiere.txt");
+                FileWriter frating = new FileWriter(dir.getAbsolutePath().toString() + "/rating.txt");
+                FileWriter fdocument = new FileWriter(dir.getAbsolutePath().toString() + "/document.html")
 
         ){
-
+            frating.write(rating);
             fpremiere.write(premiere);
             factors.write(actors);
             fcountries.write(countries);
@@ -208,6 +214,7 @@ public class KinopoiskParserFilm {
             fyear.write(year);
             iframe.write(iframeCode);
             kinopoisk_id.write(kinopoiskID);
+            fdocument.write(doc.select("body").html());
 
             File image = new File(dir.getAbsolutePath().toString() + "/image.png");
             BufferedImage bImage = SwingFXUtils.fromFXImage(this.image, null);
